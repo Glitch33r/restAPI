@@ -10,29 +10,29 @@ hunter = PyHunter(settings.HUNTER_KEY)
 
 
 class PostListSerializer(serializers.ModelSerializer):
-    detail_view = serializers.HyperlinkedIdentityField(view_name='social_network:post-detail', read_only=True)
+    # detail_view = serializers.HyperlinkedIdentityField(view_name='social_network:post-detail', read_only=True)
 
     class Meta:
         model = Post
-        fields = ('id', 'name', 'author_name', 'detail_view', )
+        fields = ('id', 'name', 'author_name', )
 
 
 class PostDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = Post
-        fields = ('id', 'name', 'text', 'likes', 'author_name', )
+        fields = ('id', 'name', 'text', 'likes', 'author_name',)
 
 
 class PostLikeUnLikeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Post
-        fields = ('id', 'likes', )
+        fields = ('id', 'likes',)
 
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('id', 'username', 'email', 'password', )
+        fields = ('id', 'username', 'email', 'password',)
 
     def validate_password(self, value):
         try:
@@ -40,7 +40,6 @@ class UserSerializer(serializers.ModelSerializer):
         except ValidationError as e:
             raise serializers.ValidationError(str(e))
         return value
-
 
     def validate_email(self, value):
         """
